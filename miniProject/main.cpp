@@ -329,7 +329,7 @@ public:
 						{
 							if (mazeDisplay[i][j] == 0)
 								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::BLACK);
-							else if (mazeDisplay[i][j] % 2 == 1)
+							else if (mazeDisplay[i][j] % 2 == 1 && mazeDisplay[i][j] != 1)
 							{
 								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::GREEN);
 								mazeDisplay[i][j] -= 2;
