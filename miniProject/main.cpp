@@ -37,10 +37,18 @@ private:
 	float FPS = 0.00375;
 	float FPSX = 16.299;
 
+	int startX = 0;
+	int startY = 0;
+	
+	int endX = 0;
+	int endY = 0;
+
 	int bfsDisplay = 0;
 	bool bfsFound = false;
 
 	float animationDelay = 0;
+
+	
 	int mazeW = 15;
 	int mazeH = 15;
 
@@ -275,19 +283,24 @@ public:
 
 						vector<int> temp = genValidPoint(maze);
 
-						int startX = temp[0];
-						int startY = temp[1];
+						startX = temp[0];
+						startY = temp[1];
 						
 						temp = genValidPoint(maze);
 
-						int endX = temp[0];
-						int endY = temp[1];
+						endX = temp[0];
+						endY = temp[1];
 
 						if (solve = BFS)
 						{
 							bfsDisplay = 0;
 							bfsFound = false;
 
+							FPSX = 0;
+							
+							vector<vector<int>> del;
+							std::swap(mazeDisplay, del);
+							
 							std::copy(maze.begin(), maze.end(), back_inserter(mazeDisplay));
 
 							mazeSolveBFS(mazeDisplay, qSolve, startX, startY, endX, endY);
@@ -396,37 +409,53 @@ public:
 					{
 						for (int j = 0; j < mazeDisplay[0].size(); j++)
 						{
-							if (mazeDisplay[i][j] == 0)
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::BLACK);
-							else if (mazeDisplay[i][j] == 1 && mazeDisplay[i][j] < bfsDisplay)
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::WHITE);
-							else if (mazeDisplay[i][j] >= bfsDisplay)
+							//std::cout << mazeDisplay[i][j] << " ";
+							if (!qSolve.empty() && bfsDisplay == (qSolve.front())[2])
+								bfsFound = true;
+							if ((i == startX && j == startY) || (i == endX && j == endY))
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::CYAN);
+							}
+							else if(mazeDisplay[i][j] == 2)
+							{
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::DARK_GREEN);
+							}
+							else if (mazeDisplay[i][j] == 0)
+							{
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::BLACK);
+							}
+							else if (mazeDisplay[i][j] == 1 || mazeDisplay[i][j] < bfsDisplay)
+							{
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::WHITE);
+							}
+							else if (mazeDisplay[i][j] > bfsDisplay)
+							{
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
+							}
+							else if (mazeDisplay[i][j] == bfsDisplay)
+							{
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::DARK_RED);
 							}
 						}
+						//std::cout << std::endl;
 					}
 					
-					bfsDisplay--;
-
-					/*if (bfsFound)
+					//std::cout << std::endl << std::endl << std::endl;
+					
+					if (!bfsFound)bfsDisplay--;
+					
+					else
 					{
-						vector<int> temp = mazeQCreate.front();
-						mazeQCreate.pop();
+						if(!qSolve.empty())
+						{
+							vector<int> temp = qSolve.front();
+							qSolve.pop();
+							
+							//std::cout << temp[0] << " " << temp[1] << std::endl;
 
-						if (maze[temp[0]][temp[1]] == 1) //add to show maze, and display green
-						{
-							FillRect(mazeOffsetX + temp[1], mazeOffsetY + temp[0], 1, 1, olc::GREEN);
-							mazeDisplay[temp[0]][temp[1]] = 9;
-							//pause = true;
+							mazeDisplay[temp[0]][temp[1]] = 2;
 						}
-						else //display red
-						{
-							FillRect(mazeOffsetX + temp[1], mazeOffsetY + temp[0], 1, 1, olc::RED);
-							mazeDisplay[temp[0]][temp[1]] = 8;
-							//pause = true;
-						}
-					}*/
+					}
 					animationDelay = 0;
 				}
 
@@ -490,7 +519,7 @@ public:
 
 		vector<vector<int>> delMaze2(mazeH + 2, vector<int>(mazeW + 2, 0));
 
-		mazeDisplay = delMaze2;
+		swap(mazeDisplay, delMaze2);
 
 		swap(maze, delMaze);
 
@@ -588,7 +617,7 @@ public:
 
 		else
 		{
-			q.push({ endX, endY });
+			q.push({ endX, endY, curentValue});
 
 			while (curentValue < 0)
 			{
@@ -603,13 +632,13 @@ public:
 
 						curentValue++;
 
-						q.push({ endX, endY });
+						q.push({ endX, endY, curentValue});
 					}
 				}
 
 			}
 
-			q.push({ startX, startY });
+			q.push({ startX, startY, curentValue });
 		}
 	}
 };
