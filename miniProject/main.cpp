@@ -689,6 +689,7 @@ public:
 
 			if (temp[0] == endX && temp[1] == endY)
 			{
+				//std::cout << "found the end" << std::endl;
 				clear(s);
 				maze[temp[0]][temp[1]] = --curentValue;
 			}
@@ -698,11 +699,13 @@ public:
 
 				for (int i = 0; i < 4; i++)
 				{
-					s.push({ temp[0] + shift[i], temp[1] + shift[i + 1] });
+					s.push( {temp[0] + shift[i], temp[1] + shift[i + 1]} );
+					//std::cout << "pushed " << temp[0] + shift[i] << " " << temp[1] + shift[i + 1] << std::endl;
 				}
 			}
 		}
 
+		//std::cout << "exited" << std::endl;
 
 		curentValue = maze[endX][endY];
 
@@ -711,12 +714,13 @@ public:
 
 		else
 		{
-			q.push({ endX, endY });
+			q.push({ endX, endY, curentValue });
 
 			while (curentValue < 0)
 			{
 				for (int i = 0; i < 4; i++)
 				{
+					//std::cout << endX << " " << endY << std::endl;
 					if (curentValue == -1)
 						curentValue++;
 					if (maze[endX + shift[i]][endY + shift[i + 1]] < 0 && maze[endX + shift[i]][endY + shift[i + 1]] > curentValue)
@@ -726,13 +730,13 @@ public:
 
 						curentValue = maze[endX][endY];
 
-						q.push({ endX, endY });
+						q.push({ endX, endY, curentValue });
 					}
 				}
 
 			}
 
-			q.push({ startX, startY });
+			q.push({ startX, startY, curentValue });
 		}
 	}
 };
