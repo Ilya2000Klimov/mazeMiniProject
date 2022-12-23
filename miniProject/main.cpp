@@ -123,6 +123,12 @@ public:
 			{
 				scene = menue;
 				update = true;
+
+				clear(maze);
+				clear(mazeDisplay);
+				clear(mazeQCreate);
+				clear(qSolve);
+				
 			}
 		}
 
@@ -449,7 +455,7 @@ public:
 							}
 							else if (mazeDisplay[i][j] > bfsDisplay)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
+								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);//Pixel(255, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
 							}
 							else if (mazeDisplay[i][j] == bfsDisplay)
 							{
@@ -649,6 +655,12 @@ public:
 	void clear(std::stack<vector<int>>& q)
 	{
 		std::stack<vector<int>> empty;
+		std::swap(q, empty);
+	}
+	
+	void clear(std::vector<vector<int>>& q)
+	{
+		std::vector<vector<int>> empty;
 		std::swap(q, empty);
 	}
 
