@@ -632,10 +632,27 @@ public:
 				{
 					maze[temp[0]][temp[1]] = 1;
 					
-					for (int i = 0; i < 4; i++)
+					for (int i = 0; i < 1111;)
+					{
+						int rShift = rand() % 4;
+
+						//std::cout << "[" << rShift << " " << i << "]    ";
+
+						if ((i / (int)pow(10, rShift)) % 10 == 0)
+						{
+							i += (int)pow(10, rShift);
+							s.push_back({ temp[0] + shift[rShift], temp[1] + shift[rShift + 1] });
+
+							//std::cout << "+" << (int)pow(10, rShift) << "=" << i << std::endl;
+
+						}
+
+					}
+					
+					/*for (int i = 0; i < 4; i++)
 					{
 						s.push_back({ temp[0] + shift[i], temp[1] + shift[i + 1]});
-					}
+					}*/
 				}
 
 			}
