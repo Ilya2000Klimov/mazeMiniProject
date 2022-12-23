@@ -262,7 +262,8 @@ public:
 						{
 							generate = primsG;
 							update = true;
-							//scene = generateMaze;
+							scene = generateMaze;
+							primsMaze(maze, mazeQCreate);
 							FPSX = 16.299;
 						}
 						if (GetMouseY() > ScreenHeight() / 2 - ScreenHeight() / 4 + 48 && GetMouseY() < ScreenHeight() / 2 - ScreenHeight() / 4 + 60)
@@ -584,10 +585,60 @@ public:
 
 			}
 		}
-
-		//rand() % 3
-
 	}
+
+
+	void primsMaze(vector<vector<int>>& maze, queue<vector<int>>& q)
+	{
+		srand(time(NULL));
+
+		vector<vector<int>> delMaze(mazeH + 2, vector<int>(mazeW + 2, 0));
+
+		vector<vector<int>> delMaze2(mazeH + 2, vector<int>(mazeW + 2, 0));
+
+		swap(mazeDisplay, delMaze2);
+
+		swap(maze, delMaze);
+
+		int startX = rand() % mazeH + 1;
+		int startY = rand() % mazeW + 1;
+
+		vector<int> shift = { 0,1,0,-1,0, 0, 0, 0 };
+
+		int height = maze.size();
+		int width = maze[0].size();
+
+		vector<vector<int>> s;
+
+		s.push_back({ startX, startY });
+
+		while (!s.empty())
+		{
+			int index = rand() % s.size();
+			vector<int> temp = s[index];
+			std::swap(s.back(), s[index]);
+			s.pop_back();
+			q.push(temp);
+
+			if (temp[0] > 0 && temp[0] < height - 1 && temp[1] > 0 && temp[1] < width - 1 && maze[temp[0]][temp[1]] == 0)  //check that its withinn the border of 0
+			{
+				if (surrounded(maze, temp[0], temp[1]))
+				{
+					maze[temp[0]][temp[1]] = 1;
+					
+					for (int i = 0; i < 4; i++)
+					{
+						s.push_back({ temp[0] + shift[i], temp[1] + shift[i + 1]});
+					}
+				}
+
+			}
+		}
+	}
+	
+
+
+	
 
 	void clear(std::queue<vector<int>>& q)
 	{
