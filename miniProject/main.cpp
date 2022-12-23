@@ -98,15 +98,21 @@ private:
 		blobG = 3
 	};
 
-	generate generate = dfsG;
+	generate generate;
 
-	solve solve = BFS;
+	solve solve;
 
-	scene scene = menue;
+	scene scene;
 
 public:
 	bool OnUserCreate() override
 	{
+		generate = dfsG;
+
+		solve = BFS;
+
+		scene = menue;
+		
 		return true;
 	}
 	bool OnUserUpdate(float fElapsedTime) override
@@ -291,7 +297,7 @@ public:
 						endX = temp[0];
 						endY = temp[1];
 
-						if (solve = BFS)
+						if (solve == BFS)
 						{
 							bfsDisplay = 0;
 							bfsFound = false;
@@ -305,8 +311,20 @@ public:
 
 							mazeSolveBFS(mazeDisplay, qSolve, startX, startY, endX, endY);
 						}
-						else;
-							//DFS;
+						else if (solve == DFS)
+						{
+							bfsDisplay = 0;
+							bfsFound = false;
+
+							FPSX = 0;
+
+							vector<vector<int>> del;
+							std::swap(mazeDisplay, del);
+
+							std::copy(maze.begin(), maze.end(), back_inserter(mazeDisplay));
+
+							mazeSolveDFS(mazeDisplay, qSolve, startX, startY, endX, endY);
+						}
 
 
 						update = true;
@@ -576,6 +594,12 @@ public:
 		std::queue<vector<int>> empty;
 		std::swap(q, empty);
 	}
+	
+	void clear(std::stack<vector<int>>& q)
+	{
+		std::stack<vector<int>> empty;
+		std::swap(q, empty);
+	}
 
 	void mazeSolveBFS(vector<vector<int>>& maze, queue<vector<int>>& q, int startX, int startY, int endX, int endY)
 	{
@@ -625,12 +649,12 @@ public:
 				{
 					if (curentValue == -1)
 						curentValue++;
-					if (maze[endX + shift[i]][endY + shift[i + 1]] == curentValue + 1)
+					if (maze[endX + shift[i]][endY + shift[i + 1]] < 0 && maze[endX + shift[i]][endY + shift[i + 1]] > curentValue)
 					{
 						endX += shift[i];
 						endY += shift[i + 1];
 
-						curentValue++;
+						curentValue = maze[endX][endY];
 
 						q.push({ endX, endY, curentValue});
 					}
@@ -639,6 +663,76 @@ public:
 			}
 
 			q.push({ startX, startY, curentValue });
+		}
+	}
+
+	
+	void mazeSolveDFS(vector<vector<int>>& maze, queue<vector<int>>& q, int startX, int startY, int endX, int endY)
+	{
+		vector<int> shift = { 0,1,0,-1, 0, 0, 0, 0 };
+
+		int height = maze.size();
+		int width = maze[0].size();
+
+		stack<vector<int>> s;
+
+		s.push({ startX, startY });
+
+		int curentValue = 0;
+
+		while (!s.empty())
+		{
+			vector<int> temp = s.top();
+			s.pop();
+
+			//std::cout << "int the while loop" << temp[0] << " " << temp[1] << " " << curentValue << std::endl;
+
+			if (temp[0] == endX && temp[1] == endY)
+			{
+				clear(s);
+				maze[temp[0]][temp[1]] = --curentValue;
+			}
+			else if (temp[0] > 0 && temp[0] < height - 1 && temp[1] > 0 && temp[1] < width - 1 && maze[temp[0]][temp[1]] == 1)
+			{
+				maze[temp[0]][temp[1]] = --curentValue;
+
+				for (int i = 0; i < 4; i++)
+				{
+					s.push({ temp[0] + shift[i], temp[1] + shift[i + 1] });
+				}
+			}
+		}
+
+
+		curentValue = maze[endX][endY];
+
+		if (curentValue == 1 || curentValue == 0)
+			std::cout << "unsolvable maze /\n\n";
+
+		else
+		{
+			q.push({ endX, endY });
+
+			while (curentValue < 0)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					if (curentValue == -1)
+						curentValue++;
+					if (maze[endX + shift[i]][endY + shift[i + 1]] < 0 && maze[endX + shift[i]][endY + shift[i + 1]] > curentValue)
+					{
+						endX += shift[i];
+						endY += shift[i + 1];
+
+						curentValue = maze[endX][endY];
+
+						q.push({ endX, endY });
+					}
+				}
+
+			}
+
+			q.push({ startX, startY });
 		}
 	}
 };
