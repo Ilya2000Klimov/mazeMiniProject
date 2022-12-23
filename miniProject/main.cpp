@@ -34,6 +34,8 @@ public:
 		scene;
 	}
 private:
+	int scale;
+	
 	float FPS = 0.00375;
 	float FPSX = 16.299;
 
@@ -112,6 +114,8 @@ public:
 		solve = BFS;
 
 		scene = menue;
+
+		scale = std::min((ScreenWidth() - 22) / (mazeW), (ScreenHeight() - 22) / (mazeH));
 		
 		return true;
 	}
@@ -340,8 +344,8 @@ public:
 				//generate the maze
 				DrawString(15, 2, "Generate", olc::YELLOW);
 
-				mazeOffsetX = ScreenWidth() / 2 - (maze[0].size()) / 2;
-				mazeOffsetY = ScreenHeight() / 2 - (maze.size()) / 2;
+				mazeOffsetX = ScreenWidth() / 2 - (maze[0].size()) * scale / 2;
+				mazeOffsetY = ScreenHeight() / 2 - (maze.size()) * scale / 2;
 
 				
 
@@ -353,19 +357,19 @@ public:
 						for (int j = 0; j < mazeDisplay[0].size(); j++)
 						{
 							if (mazeDisplay[i][j] == 0)
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::BLACK);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::BLACK);
 							else if (mazeDisplay[i][j] % 2 == 1 && mazeDisplay[i][j] != 1)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::GREEN);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::GREEN);
 								mazeDisplay[i][j] -= 2;
 							}
-							else if (mazeDisplay[i][j]%2 == 0)
+							else if (mazeDisplay[i][j] % 2 == 0)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::RED);
 								mazeDisplay[i][j] -= 2;
 							}
 							else
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::WHITE);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::WHITE);
 						}
 					}
 
@@ -376,15 +380,13 @@ public:
 
 						if (maze[temp[0]][temp[1]] == 1) //add to show maze, and display green
 						{
-							FillRect(mazeOffsetX + temp[1], mazeOffsetY + temp[0], 1, 1, olc::GREEN);
+							FillRect(mazeOffsetX + temp[1] * scale, mazeOffsetY + temp[0] * scale, 1 * scale, 1 * scale, olc::GREEN);
 							mazeDisplay[temp[0]][temp[1]] = 9;
-							//pause = true;
 						}
 						else //display red
 						{
-							FillRect(mazeOffsetX + temp[1], mazeOffsetY + temp[0], 1, 1, olc::RED);
+							FillRect(mazeOffsetX + temp[1] * scale, mazeOffsetY + temp[0] * scale, 1 * scale, 1 * scale, olc::RED);
 							mazeDisplay[temp[0]][temp[1]] = 8;
-							//pause = true;
 						}
 					}
 					animationDelay = 0;
@@ -415,6 +417,10 @@ public:
 					if (GetKey(olc::Key::UP).bHeld) mazeH = upToTheMaxSize(abs(mazeH + (1)), ScreenHeight() - 22);
 					if (GetKey(olc::Key::DOWN).bHeld) mazeH = upToTheMaxSize(abs(mazeH - (1)), ScreenHeight() - 22);
 
+					scale = std::min((ScreenWidth() - 22) / (mazeW), (ScreenHeight() - 22) / (mazeH));
+					
+					std::cout << "scale = " << scale << std::endl;
+
 					animationDelay = 0;
 				}
 
@@ -424,8 +430,8 @@ public:
 			{
 				DrawString(ScreenWidth() / 10, 2, "Solve", olc::YELLOW);
 
-				mazeOffsetX = ScreenWidth() / 2 - (maze[0].size()) / 2;
-				mazeOffsetY = ScreenHeight() / 2 - (maze.size()) / 2;
+				mazeOffsetX = ScreenWidth() / 2 - (maze[0].size()) * scale / 2;
+				mazeOffsetY = ScreenHeight() / 2 - (maze.size()) * scale / 2;
 
 				animationDelay += fElapsedTime;
 				if (animationDelay > FPS)
@@ -439,27 +445,27 @@ public:
 								bfsFound = true;
 							if ((i == startX && j == startY) || (i == endX && j == endY))
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::CYAN);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::CYAN);
 							}
 							else if(mazeDisplay[i][j] == 2)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::DARK_GREEN);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::DARK_GREEN);
 							}
 							else if (mazeDisplay[i][j] == 0)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::BLACK);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::BLACK);
 							}
 							else if (mazeDisplay[i][j] == 1 || mazeDisplay[i][j] < bfsDisplay)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::WHITE);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::WHITE);
 							}
 							else if (mazeDisplay[i][j] > bfsDisplay)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::RED);//Pixel(255, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::RED);//Pixel(255, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
 							}
 							else if (mazeDisplay[i][j] == bfsDisplay)
 							{
-								FillRect(mazeOffsetX + j, mazeOffsetY + i, 1, 1, olc::DARK_RED);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::DARK_RED);
 							}
 						}
 						//std::cout << std::endl;
@@ -519,7 +525,7 @@ public:
 
 	int upToTheMaxSize(int num, int max)
 	{
-		return num > max ? max : num;
+		return num > max ? max : num < 1 ? 1 : num;
 	}
 
 
