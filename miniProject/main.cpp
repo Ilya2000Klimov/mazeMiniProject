@@ -417,9 +417,9 @@ public:
 					if (GetKey(olc::Key::UP).bHeld) mazeH = upToTheMaxSize(abs(mazeH + (1)), ScreenHeight() - 22);
 					if (GetKey(olc::Key::DOWN).bHeld) mazeH = upToTheMaxSize(abs(mazeH - (1)), ScreenHeight() - 22);
 
-					scale = std::min((ScreenWidth() - 22) / (mazeW), (ScreenHeight() - 22) / (mazeH));
+					scale = std::min((ScreenWidth() - 22) / (mazeW + 2), (ScreenHeight() - 22) / (mazeH + 2));
 					
-					std::cout << "scale = " << scale << std::endl;
+					//std::cout << "scale = " << scale << std::endl;
 
 					animationDelay = 0;
 				}
@@ -430,8 +430,8 @@ public:
 			{
 				DrawString(ScreenWidth() / 10, 2, "Solve", olc::YELLOW);
 
-				mazeOffsetX = ScreenWidth() / 2 - (maze[0].size()) * scale / 2;
-				mazeOffsetY = ScreenHeight() / 2 - (maze.size()) * scale / 2;
+				mazeOffsetX = (ScreenWidth() - (maze[0].size()) * scale) / 2;
+				mazeOffsetY = (ScreenHeight() - (maze.size()) * scale) / 2;
 
 				animationDelay += fElapsedTime;
 				if (animationDelay > FPS)
