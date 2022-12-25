@@ -37,7 +37,7 @@ private:
 	int scale;
 	
 	float FPS = 0.00375;
-	float FPSX = 16.299;
+	float FPSX = 3;// 16.299;
 
 	int startX = 0;
 	int startY = 0;
@@ -266,7 +266,7 @@ public:
 							scene = generateMaze;
 							update = true;
 							dfsMaze(maze, mazeQCreate);
-							FPSX = 16.299;
+							FPSX = 3;// 16.299;
 						}
 						if (GetMouseY() > ScreenHeight() / 2 - ScreenHeight() / 4 + 33 && GetMouseY() < ScreenHeight() / 2 - ScreenHeight() / 4 + 45)
 						{
@@ -274,14 +274,14 @@ public:
 							update = true;
 							scene = generateMaze;
 							primsMaze(maze, mazeQCreate);
-							FPSX = 16.299;
+							FPSX = 3;// 16.299;
 						}
 						if (GetMouseY() > ScreenHeight() / 2 - ScreenHeight() / 4 + 48 && GetMouseY() < ScreenHeight() / 2 - ScreenHeight() / 4 + 60)
 						{
 							generate = blobG;
 							update = true;
 							//scene = generateMaze;
-							FPSX = 16.299;
+							FPSX = 3;// 16.299;
 						}
 					}
 				}
@@ -313,7 +313,7 @@ public:
 							bfsDisplay = 0;
 							bfsFound = false;
 
-							FPSX = 0;
+							FPSX = 1;
 							
 							vector<vector<int>> del;
 							std::swap(mazeDisplay, del);
@@ -327,7 +327,7 @@ public:
 							bfsDisplay = 0;
 							bfsFound = false;
 
-							FPSX = 0;
+							FPSX = 1;
 
 							vector<vector<int>> del;
 							std::swap(mazeDisplay, del);
