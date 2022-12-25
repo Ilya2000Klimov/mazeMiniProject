@@ -115,7 +115,7 @@ public:
 
 		scene = menue;
 
-		scale = std::min((ScreenWidth() - 22) / (mazeW), (ScreenHeight() - 22) / (mazeH));
+		scale = std::min((ScreenWidth() - 22) / (mazeW + 2), (ScreenHeight() - 22) / (mazeH + 2));
 		
 		return true;
 	}
@@ -405,6 +405,8 @@ public:
 
 				DrawString(20, ScreenHeight() / 2 - ScreenHeight() / 4 + 35, "Width  = " + std::to_string(mazeW) + "\t\tleft/right to change", olc::YELLOW);
 
+				DrawString(20, ScreenHeight() / 2 - ScreenHeight() / 4 + 50, "Scale  = " + std::to_string(scale), olc::YELLOW);
+
 
 				animationDelay += fElapsedTime;
 				if (animationDelay > FPS)
@@ -419,7 +421,7 @@ public:
 
 					scale = std::min((ScreenWidth() - 22) / (mazeW + 2), (ScreenHeight() - 22) / (mazeH + 2));
 					
-					//std::cout << "scale = " << scale << std::endl;
+					scale = scale < 1 ? 1 : scale;
 
 					animationDelay = 0;
 				}
