@@ -447,11 +447,11 @@ public:
 								bfsFound = true;
 							if ((i == startX && j == startY) || (i == endX && j == endY))
 							{
-								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::CYAN);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, bfsDisplay % 2 ? olc::CYAN : olc::Pixel(255, 127, 0));
 							}
 							else if(mazeDisplay[i][j] == 2)
 							{
-								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::DARK_GREEN);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::GREEN);
 							}
 							else if (mazeDisplay[i][j] == 0)
 							{
@@ -463,7 +463,8 @@ public:
 							}
 							else if (mazeDisplay[i][j] > bfsDisplay)
 							{
-								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::RED);//Pixel(255, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
+								float t = (float)(mazeDisplay[i][j] - bfsDisplay);
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::Pixel(255, (int)(130.0 * t / (t + std::min(mazeH, mazeW))), (int)(130.0 * t / (t + std::min(mazeH, mazeW))) ));//(255, 0, 0, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1))));// / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
 							}
 							else if (mazeDisplay[i][j] == bfsDisplay)
 							{
