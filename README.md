@@ -3,10 +3,18 @@ This project provides C++ visualisation of a couple algorithms for generating an
 
 ![Menue](/Images/Menue.png)
 
-##DFS Maze Generation and BFS solution
 
-![Menue](/Images/GenerateDFS-SolveBFS.gif)
+<details>
+<summary>DFS Maze Generation and BFS solution</summary>
+<br>
+![Maze Generate DFS, Maze Solve BFS](/Images/GenerateDFS-SolveBFS.gif)
+</details>
 
-##BFS Maze Generation and DFS solution
 
-![Menue](/Images/GenerateBFS-SolveDFS.gif)
+<details>
+<summary>BFS Maze Generation and DFS solution</summary>
+<br>
+![Maze Generate BFS, Maze Solve DFS](/Images/GenerateBFS-SolveDFS.gif)
+</details>
+
+The shown demo runs in Visual Studio, using the olcPixelGameEngine
