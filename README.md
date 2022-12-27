@@ -6,6 +6,7 @@ This project provides C++ visualisation of a couple algorithms for generating an
 
 <details>
 <summary>DFS Maze Generation and BFS solution</summary>
+<img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
 ![Maze Generate DFS, Maze Solve BFS](/Images/GenerateDFS-SolveBFS.gif)
 </details>
 
