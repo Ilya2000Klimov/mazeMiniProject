@@ -1,11 +1,7 @@
 # mazeMiniProject
 This project provides C++ visualisation of a couple algorithms for generating and solving mazes
 
-|             | Solve BFS | Solve DFS   |
-| ----------- | ----------- | ----------- |
-| Create BFS     | Title       | Paragraph   |
-| Create  | Text        | Paragraph   |
-
+![Menue](/Images/Menue.png)
 
 <table>
   <tr>
@@ -36,8 +32,6 @@ This project provides C++ visualisation of a couple algorithms for generating an
 </table>
 
 
-
-![Menue](/Images/Menue.png)
 
 
 <details open>
