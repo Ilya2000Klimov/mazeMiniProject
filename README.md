@@ -1,6 +1,17 @@
 # mazeMiniProject
 This project provides C++ visualisation of a couple algorithms for generating and solving mazes
 
+|             | Solve BFS | Solve DFS   |
+| ----------- | ----------- | ----------- |
+| Create BFS  | Title       | <details open>
+<summary>BFS Maze Generation and DFS solution</summary>
+<img src="/Images/GenerateBFS-SolveDFS.gif" alt="Maze Generate BFS, Maze Solve DFS">
+</details>   |
+| Create DFS  | <details open>
+<summary>DFS Maze Generation and BFS solution</summary>
+<img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
+</details> | Paragraph   |
+
 ![Menue](/Images/Menue.png)
 
 
