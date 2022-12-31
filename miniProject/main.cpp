@@ -463,8 +463,8 @@ public:
 							}
 							else if (mazeDisplay[i][j] > bfsDisplay)
 							{
-								float t = (float)(mazeDisplay[i][j] - bfsDisplay);
-								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::Pixel(255, (int)(130.0 * t / (t + std::min(mazeH, mazeW))), (int)(130.0 * t / (t + std::min(mazeH, mazeW))) ));//(255, 0, 0, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1))));// / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
+								float t = (float)(mazeDisplay[i][j] - bfsDisplay);//Gradient
+								FillRect(mazeOffsetX + j * scale, mazeOffsetY + i * scale, 1 * scale, 1 * scale, olc::Pixel(255, (int)(180.0 * t / (t + std::min(mazeH, mazeW))), (int)(180.0 * t / (t + std::min(mazeH, mazeW))) ));//(255, 0, 0, 255 / (((bfsDisplay)-(mazeDisplay[i][j]) - 1))));// / mazeDisplay[i][j] + 1), 255 / (((bfsDisplay) - (mazeDisplay[i][j]) - 1) / mazeDisplay[i][j] + 1)));//RED);//Pixel(255, 255 - (bfsDisplay - mazeDisplay[i][j]), 255 - (bfsDisplay - mazeDisplay[i][j])));// FUN ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay, ((float)255 * (float)mazeDisplay[i][j]) / (float)bfsDisplay)); // for fun change the last two to			
 							}
 							else if (mazeDisplay[i][j] == bfsDisplay)
 							{
