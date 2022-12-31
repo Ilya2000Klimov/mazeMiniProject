@@ -5,34 +5,46 @@ This project provides C++ visualisation of a couple algorithms for generating an
 
 <table>
   <tr>
-    <th> </th>
-    <th>Solve BFS</th>
-    <th>Solve DFS</th>
+    <th>Generate DFS</th>
+    <th>Generate BFS</th>
   </tr>
   <tr>
-    <td>Create BFS</td>
-    <td></td>
+    <td><details open>
+            <summary>BFS Maze Generation and DFS solution</summary>
+            <img src="/Images/DFS-Generate.gif" alt="Maze Generate BFS, Maze Solve DFS">
+        </details>  </td>
     <td>
         <details open>
             <summary>BFS Maze Generation and DFS solution</summary>
-            <img src="/Images/GenerateBFS-SolveDFS.gif" alt="Maze Generate BFS, Maze Solve DFS">
+            <img src="/Images/BFS-Generate.gif" alt="Maze Generate BFS, Maze Solve DFS">
         </details>    
     </td>
   </tr>
   <tr>
-    <td>Create DFS</td>
+    <td>Solve DFS</td>
+    <td>Solve BFS</td>
+  </tr>
+  <tr>
     <td>
         <details open>
             <summary>DFS Maze Generation and BFS solution</summary>
             <img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
         </details>
     </td>
-    <td></td>
+    <td>
+        <details open>
+            <summary>DFS Maze Generation and BFS solution</summary>
+            <img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
+        </details>
+    </td>
   </tr>
 </table>
 
 
-
+<details open>
+            <summary>DFS Maze Generation and BFS solution</summary>
+            <img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
+</details>
 
 <details open>
 <summary>DFS Maze Generation and BFS solution</summary>
