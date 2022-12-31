@@ -4,13 +4,13 @@ This project provides C++ visualisation of a couple algorithms for generating an
 ![Menue](/Images/Menue.png)
 
 
-<details>
+<details open>
 <summary>DFS Maze Generation and BFS solution</summary>
 <img src="/Images/GenerateDFS-SolveBFS.gif" alt="Maze Generate DFS, Maze Solve BFS">
 </details>
 
 
-<details>
+<details open>
 <summary>BFS Maze Generation and DFS solution</summary>
 <img src="/Images/GenerateBFS-SolveDFS.gif" alt="Maze Generate BFS, Maze Solve DFS">
 </details>
